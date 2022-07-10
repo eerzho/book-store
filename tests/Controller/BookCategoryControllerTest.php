@@ -2,19 +2,39 @@
 
 namespace App\Tests\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use App\Entity\BookCategory;
+use App\Tests\AbstractControllerTest;
 
-class BookCategoryControllerTest extends WebTestCase
+class BookCategoryControllerTest extends AbstractControllerTest
 {
     public function testCategories()
     {
-        $client = static::createClient();
-        $client->request('GET', '/api/v1/books/category');
-        $responseContent = $client->getResponse()->getContent();
+        $this->entityManager->persist((new BookCategory())
+            ->setTitle('Category 1')
+            ->setSlug('category-1'));
+        $this->entityManager->flush();
+
+        $this->client->request('GET', '/api/v1/books/category');
+        $responseContent = $this->client->getResponse()->getContent();
 
         $this->assertResponseIsSuccessful();
-        $this->assertJsonStringEqualsJsonFile(
-            __DIR__.'/responses/BookCategoryControllerTest_testCategories.json',
-            $responseContent);
+        $this->assertJsonDocumentMatchesSchema($responseContent, [
+            'type' => 'object',
+            'required' => ['data'],
+            'properties' => [
+                'items' => [
+                    'type' => 'array',
+                    'items' => [
+                        'type' => 'object',
+                        'required' => ['id', 'title', 'slug'],
+                        'properties' => [
+                            'id' => ['type' => 'integer'],
+                            'title' => ['type' => 'string'],
+                            'slug' => ['type' => 'string'],
+                        ],
+                    ],
+                ],
+            ],
+        ]);
     }
 }

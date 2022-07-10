@@ -4,11 +4,11 @@ namespace App\Controller;
 
 use App\Model\BookCategory\BookCategoryListResponse;
 use App\Service\BookCategoryService;
+use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Annotations as OA;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Nelmio\ApiDocBundle\Annotation\Model;
 
 class BookCategoryController extends AbstractController
 {

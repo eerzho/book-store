@@ -7,21 +7,21 @@ class BookCategoryListResponse
     /**
      * @var BookCategoryListItem[]
      */
-    private array $items;
+    private array $data;
 
     /**
-     * @param BookCategoryListItem[] $items
+     * @param array $data
      */
-    public function __construct(array $items)
+    public function __construct(array $data)
     {
-        $this->items = $items;
+        $this->data = $data;
     }
 
     /**
      * @return BookCategoryListItem[]
      */
-    public function getItems(): array
+    public function getData(): array
     {
-        return $this->items;
+        return $this->data;
     }
 }
