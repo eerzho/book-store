@@ -8,14 +8,25 @@ use Doctrine\Persistence\ObjectManager;
 
 class BookCategoryFixtures extends Fixture
 {
+    public const CATEGORY_1 = 'android';
+    public const CATEGORY_2 = 'devices';
+
     public function load(ObjectManager $manager): void
     {
-        $manager->persist((new BookCategory())->setTitle('Data')->setSlug('data'));
-        $manager->persist((new BookCategory())->setTitle('Android')->setSlug('android'));
-        $manager->persist((new BookCategory())->setTitle('Networking')->setSlug('networking'));
-        // $product = new Product();
-        // $manager->persist($product);
+        $categories = [
+            self::CATEGORY_1 => (new BookCategory())->setTitle(ucfirst(self::CATEGORY_1))->setSlug(self::CATEGORY_1),
+            self::CATEGORY_2 => (new BookCategory())->setTitle(ucfirst(self::CATEGORY_2))->setSlug(self::CATEGORY_2),
+        ];
 
+        foreach ($categories as $category) {
+            $manager->persist($category);
+        }
+
+        $manager->persist((new BookCategory())->setTitle('Networking')->setSlug('networking'));
         $manager->flush();
+
+        foreach ($categories as $code => $category) {
+            $this->addReference($code, $category);
+        }
     }
 }

@@ -3,8 +3,8 @@
 namespace App\Service;
 
 use App\Entity\BookCategory;
-use App\Model\BookCategoryListItem;
-use App\Model\BookCategoryListResponse;
+use App\Model\BookCategory\BookCategoryListItem;
+use App\Model\BookCategory\BookCategoryListResponse;
 use App\Repository\BookCategoryRepository;
 use Doctrine\Common\Collections\Criteria;
 
