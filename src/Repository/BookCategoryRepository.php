@@ -47,28 +47,9 @@ class BookCategoryRepository extends ServiceEntityRepository
     {
         return $this->findBy([], ['title' => Criteria::ASC]);
     }
-//    /**
-//     * @return BookCategory[] Returns an array of BookCategory objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('b')
-//            ->andWhere('b.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('b.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
 
-//    public function findOneBySomeField($value): ?BookCategory
-//    {
-//        return $this->createQueryBuilder('b')
-//            ->andWhere('b.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function existsById(int $id): bool
+    {
+        return null !== $this->find($id);
+    }
 }
